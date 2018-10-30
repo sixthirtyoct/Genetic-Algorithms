@@ -1,5 +1,7 @@
 #In this example we will consider two genes: no_of_blades,length of blade
 #(We are trying to find something about fans i guess)
+#But this code can work for any number of genes
+#Edit the fitness function according to the requirement
 
 import math
 population_size=int(input('Enter the population size: '))
