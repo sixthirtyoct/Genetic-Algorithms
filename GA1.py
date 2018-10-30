@@ -1,5 +1,6 @@
 #In this example we will consider two genes: no_of_blades,length of blade
 #(We are trying to find something about fans i guess)
+
 import math
 population_size=int(input('Enter the population size: '))
 chromosomes=[]
