@@ -1,0 +1,43 @@
+import math
+import random
+from operator import itemgetter
+population_size=int(input('Enter the population size: '))
+chromosomes=[]
+fitness_values=[]
+
+def fitness_func(ip_chromosome):
+    return (sum(ip_chromosome)*12.3)*math.pi #Can be anything
+
+for i in range(population_size):
+    ip=[int(x) for x in input('Enter '+str(i+1)+" chromosome's gene: ").split(" ")]
+    chromosomes.append(ip)
+    fitness_values.append(fitness_func(ip))
+
+    
+total_sum=sum(fitness_values)
+for i in range(len(fitness_values)):
+    fitness_values[i]=fitness_values[i]/total_sum   #Normalised Fitness Values
+cumsum=[]
+for i in range(len(fitness_values)):
+    cumsum.append(sum(fitness_values[i:]))
+
+big_list=[]
+for i in range(len(chromosomes)):
+    big_list.append([chromosomes[i],fitness_values[i],cumsum[i]])
+
+ans=sorted(big_list,key=itemgetter(2))
+ans_=ans.copy()
+for i in range(2):
+    r=random.uniform(0,1)
+    print("Random Number "+str(i+1) +": ",r)
+    for j in range(len(ans_)-1,-1,-1):
+        if r>ans_[j][2]:
+            parent=ans_[j+1][0]
+            print("Parent "+str(i+1),parent)
+            ans_.remove(ans[j+1]) #To make sure we don't choose the same parent again
+            break
+        if r<ans_[0][2]: #In case if r value is less than all the cumsum values...
+            parent=ans_[0][0]
+            print("Parent "+str(i+1),parent)
+            ans_.remove(ans_[0])
+            break
